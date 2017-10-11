@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Project</title>
+    <!-- These are comments -->
+    <!-- By the way, Bootstrap requires the next two lines. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 mx-auto">
+                <form>
+                    <div class="form-group">
+                        <label for="searchbox" class="form-control-label">Search</label>
+                        <input type="text" class="form-control" name="searchbox" id="searchbox" maxlength="30" required autofocus placeholder="e.g 01234567891011121">
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- We load these files too, required by bootstrap -->
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
