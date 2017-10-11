@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Homepage My Project</title>
+    <title>Dashboard</title>
     <!-- These are comments -->
     <!-- By the way, Bootstrap requires the next two lines. -->
     <meta charset="utf-8">
@@ -32,51 +32,45 @@
             </ul>
         </div>
     </nav>
-    <div class="container mt-5 mb-4">
+    <div class="container mt-4 mb-2">
         <div class="row">
             <div class="col-sm-12 col-md-8 mx-auto">
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="searchbox" id="searchbox" maxlength="30" required autofocus placeholder="e.g 01234567891011121">
+                        <label for="searchbox" class="form-control-label">Add new device</label>
+                        <input type="text" class="form-control" name="searchbox" id="searchbox" maxlength="30" required autofocus placeholder="e.g 01234567891011121">
                     </div>
-                    <div class="form-group text-center">
-                        <button type="submit" role="button" class="btn btn-primary btn-lg">Search</button>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="where">Where's the Device</label>
+                            <select class="form-control" id="where" name="where">
+                                <option>With Me</option>
+                                <option>Stolen</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name" class="form-control-label">Your Name</label>
+                            <input type="text" class="form-control" name="name" id="name" maxlength="30" required autofocus placeholder="e.g 01234567891011121">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" role="button" class="btn btn-outline-primary">Save</button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="row mt-5 text-center">
-            <div class="col-12 mb-3">
-                <h3>How it Works</h3>
+        <div class="row mt-5">
+            <div class="col-12 mb-3 text-center">
+                <h3>Your enlisted Devices</h3>
                 <hr class="my-4">
             </div>
-            <div class="col-md-4">
-                <h3 class="lead" style="font-size:3rem;">Search</h3>
-                <p class="lead">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h3 class="lead" style="font-size:3rem;">Understand</h3>
-                <p class="lead">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div class="col-md-4">
-                <h3 class="lead" style="font-size:3rem;">Contribute</h3>
-                <p class="lead">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div class="w-100">
+            <div class="col-md-8 mx-auto">
               
-            <hr class="my-4">
-            </div>
-            <div class="col-12 mt-3 text-center">
-                <a href="#" class="btn btn-outline-primary btn-lg">Get Started</a>
+                <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
             </div>
         </div>
     </div>
