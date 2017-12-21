@@ -1,6 +1,11 @@
-<div class="container mt-5 mb-4">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-md-6 mx-auto">
+    <div class="mx-auto mb-3">
+      <h3>MenPha</h3>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-expanded="true">Login</a>
@@ -11,30 +16,52 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-          <form class="mt-4 ml-1">
+          <form #formData='ngForm' (ngSubmit)="login(formData)" class="mt-3">
             <div class="form-group">
-              <label for="email" class="form-control-label">Email address</label>
-              <input type="email" autofocus required autocomplete class="form-control" id="email" placeholder="Enter email">
+              <label for="email_username">Email or Username</label>
+              <input type="email" class="form-control" name="email_username" id="email_username" autofocus autocomplete required [(ngModel)]="email_username" aria-describedby="emailOrUsernameHelp" placeholder="Enter email or username">
+              <small id="emailOrUsernameHelp" class="form-text text-muted">Either your username or email address on file</small>
             </div>
             <div class="form-group">
-              <label for="password" class="form-control-label">Password</label>
-              <input type="password" required class="form-control" id="password" placeholder="Password">
+              <label for="password_reg">Password</label>
+              <input type="password" class="form-control" name="password" id="password_reg" [(ngModel)]="password" placeholder="Password" required autocomplete>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" role="button" [disabled]="busy || !formData.valid"><span *ngIf="busy">Logging in...</span><span *ngIf="!busy">Login</span></button>
           </form>
         </div>
         <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-          <form class="mt-4 ml-1">
+          <div *ngIf="registered" class="mt-4">
+            <p class="lead" *ngIf="registered">
+              Thank you for joining Menpha. Check your email address for an email from us.
+            </p>
+            <p>The email will be from Menpha, and in it, you will be asked to verify your email. Follow instructions there in to proceed.</p>
+            <a [routerLink]="['/']" class="btn btn-outline-primary">Go Home</a>
+          </div>
+          <form #RegisterData='ngForm' (ngSubmit)="register(RegisterData)" class="mt-3" *ngIf="!registered">
             <div class="form-group">
-              <label for="email" class="form-control-label">Email address</label>
-              <input type="email" autocomplete autofocus required class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              <label for="fullName">Full Name</label>
+              <input type="text" name="fullName" [(ngModel)]="fullName" class="form-control" id="fullName" aria-describedby="fullName" placeholder="Enter Full Name"  minlength="5" required autofocus autocomplete>
+              <small id="fullName" class="form-text text-muted">You'll be called this name throughout Menpha</small>
             </div>
             <div class="form-group">
-              <label for="password" class="form-control-label">Password</label>
-              <input type="password" required class="form-control" id="password" placeholder="Password">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email" [(ngModel)]="email" id="email" aria-describedby="email" placeholder="Enter email" required autocomplete>
+              <small id="email" class="form-text text-muted">Heck! We never share this detail with anyone. <a [routerLink]="['/privacy-terms']" target="new">Privacy Policy</a></small>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="username" class="form-control" name="username" [(ngModel)]="username" id="username" aria-describedby="username" placeholder="Enter username" required minlength="3" autocomplete>
+              <small id="username" class="form-text text-muted">Minimum 3 characters. This will uniquely identify you throughout Menpha</small>
+            </div>
+            <div class="form-group">
+              <label for="password_login">Password</label>
+              <input type="password" class="form-control" id="password_login" [(ngModel)]="password" name="password" placeholder="Password" aria-describedby="password" required autocomplete>
+              <small id="password" class="form-text text-muted">Length should be at least 6 characters. We won't force you though.</small>
+            </div>
+            <div class="form-group">
+              <re-captcha (resolved)="resolved($event)" siteKey="6LcuIjwUAAAAAKrWVeWPz_1Vhn3aeJkCLhWLuN0l"></re-captcha>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5" role="button" [disabled]="busy || !RegisterData.valid"><span *ngIf="busy">Hold on a sec...</span><span *ngIf="!busy">Register</span></button>
           </form>
         </div>
       </div>
