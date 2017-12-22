@@ -12,9 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
+import { NotVerifiedComponent } from './login-register/not-verified.component';
+import { VerifyEmailComponent } from './verify/verify-email.component';
 
 // Providers
 import { AuthenticationService } from './providers/auth.service';
+import { AuthGuard } from './providers/auth-guard.service';
+import { CodeService } from './providers/code.service';
 
 import { AppRouting } from './app.routing';
 
@@ -24,7 +28,9 @@ import { AppRouting } from './app.routing';
     HomeComponent,
     AboutComponent,
     DashboardComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    NotVerifiedComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,7 @@ import { AppRouting } from './app.routing';
     ToastrModule.forRoot(),
     AppRouting
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, AuthGuard, CodeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

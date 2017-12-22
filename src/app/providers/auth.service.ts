@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +16,7 @@ export class AuthenticationService {
     return headers;
   }
 
-  public loggedIn: boolean;
+  isLoginSubject = new BehaviorSubject(this.hasToken())
   
   constructor(public http: Http) {  }
 
@@ -62,7 +62,7 @@ export class AuthenticationService {
         localStorage.setItem('currentUser', JSON.stringify(res.json().user));
         const time_to_login = Date.now() + 604800000; // one week
         localStorage.setItem('timer', JSON.stringify(time_to_login));
-        this.loggedIn = true;
+        this.isLoginSubject.next(true);
         return res;
       });
   }
@@ -153,7 +153,11 @@ export class AuthenticationService {
   * Determines if user is logged in
   * @returns {Boolean}
   */
-  isLoggedIn() {
+  isLoggedIn():Observable<boolean> {
+    return this.isLoginSubject.asObservable().share();
+  }
+
+  private hasToken():boolean {
     const token = localStorage.getItem('token');
     if (token) {
       return true;
@@ -167,7 +171,7 @@ export class AuthenticationService {
   */
   logout() {
     localStorage.clear()
-    this.loggedIn = false;
+    this.isLoginSubject.next(false);
     return true;
   }
 

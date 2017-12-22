@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from './providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  
+  isLoggedIn;
+
+  constructor(private auth: AuthenticationService, private router: Router) { }
+  
+  ngOnInit() {
+    this.auth.isLoggedIn()
+      .subscribe((val) => {
+        this.isLoggedIn = val;
+      })
+  }
+
+  logout() {
+    this.auth.logout();
+    this.auth.isLoggedIn()
+      .subscribe((val) => {
+        this.isLoggedIn = val;
+      })
+    this.router.navigate(['/auth']);
+  }
 }

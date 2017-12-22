@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="mx-auto mb-3 text-center">
+      <h3>KhoPhi</h3>
+      <p class="lead">Email Verification</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto text-center" *ngIf="busy">
+      <div class="windows8">
+        <div class="wBall" id="wBall_1">
+          <div class="wInnerBall"></div>
+        </div>
+        <div class="wBall" id="wBall_2">
+          <div class="wInnerBall"></div>
+        </div>
+        <div class="wBall" id="wBall_3">
+          <div class="wInnerBall"></div>
+        </div>
+        <div class="wBall" id="wBall_4">
+          <div class="wInnerBall"></div>
+        </div>
+        <div class="wBall" id="wBall_5">
+          <div class="wInnerBall"></div>
+        </div>
+      </div>
+      <p class="lead mt-5">
+        Verifying your account. Hold on a second.
+      </p>
+    </div>
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto text-center" *ngIf="!error">
+      <p class="lead">
+        Your account is now verified. Welcome aboard.
+      </p>
+      <a [routerLink]="['/dash']" class="btn btn-outline-primary">Continue</a>
+    </div>    
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto text-center" *ngIf="error">
+      <p class="lead">
+        Your account is not verified. Please Follow instructions in your email first.
+      </p>
+      <form class="" #formData='ngForm' (ngSubmit)="sendVerificationEmail(formData)" *ngIf="!done">
+        <div class="form-group">
+          <input type="email" name="email" class="form-control" [ngModel]="email" placeholder="email address" required autofocus autocomplete>
+        </div>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="formData.invalid">Resend verification email</button>
+      </form>
+    </div>
+  </div>
+</div>

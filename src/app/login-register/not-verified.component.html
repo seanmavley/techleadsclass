@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="mx-auto mb-3 text-center">
+      <h3>KhoPhi</h3>
+      <p class="lead">
+        Email Verification Incomplete
+      </p>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto text-center">
+      <p class="lead">
+        Your account is not verified. Please Follow instructions in your email first.
+      </p>
+      <a [routerLink]="['/']" class="btn btn-outline-primary">Go Home</a> 
+      <hr class="my-4">
+      <form class="" #formData='ngForm' (ngSubmit)="sendVerificationEmail(formData)" *ngIf="!done">
+        <div class="form-group">
+          <input type="email" name="email" class="form-control" [ngModel]="email" placeholder="email address" required autofocus autocomplete>
+        </div>
+        <button type="submit" class="btn btn-outline-primary" [disabled]="formData.invalid">
+          <span *ngIf="busy">Preparing to send</span><span *ngIf="!busy">Resend verification email</span></button>
+      </form>
+    </div>
+
+  </div>
+</div>

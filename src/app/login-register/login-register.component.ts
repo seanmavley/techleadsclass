@@ -31,9 +31,12 @@ export class LoginRegisterComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.auth.isLoggedIn()) {
-      this.router.navigate(['/']);
-    }
+    this.auth.isLoggedIn()
+      .subscribe((val) => {
+        if(val) {
+          this.router.navigate(['/']);
+        }
+      })
 
     this.continue = this.route.snapshot.queryParams['continue'] || '/';
 
@@ -57,7 +60,7 @@ export class LoginRegisterComponent implements OnInit {
             if(!res.json().email_verified) {
               this.toastr.info(res.json().msg);
               this.auth.logout();
-              this.router.navigate(['/auth/not-verified']);
+              this.router.navigate(['/not-verified']);
             } else {
               this.router.navigate([this.continue]);
             }

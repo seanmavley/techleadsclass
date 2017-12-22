@@ -1,43 +1,75 @@
 <div class="container mt-5 mb-4">
   <div class="row">
     <div class="col-sm-12 col-md-8 mx-auto">
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control form-control-lg" name="searchbox" id="searchbox" maxlength="30" required autofocus placeholder="e.g 01234567891011121">
-        </div>
-        <div class="form-group text-center">
-          <button type="submit" role="button" class="btn btn-primary btn-lg">Search</button>
+      <form #formData='ngForm' (ngSubmit)="onSearch(formData.value)">
+        <div class="row">
+          <div class="col-12">
+            <div class="input-group">
+              <input type="number" class="form-control form-control-lg" placeholder="Search for IMEI or Serial Number" aria-label="Search for IMEI or Serial Number" id="search" name="search" required ngModel maxlength="30" autofocus>
+              <span class="input-group-btn">
+                <button class="btn btn-primary btn-lg" type="submit" [disabled]="!formData.valid"><i class="fa fa-spinner fa-pulse fa-fw" *ngIf="is_searching"></i><span class="sr-only" *ngIf="is_searching">Loading...</span><span *ngIf="!is_searching">Go</span></button>
+              </span>
+            </div>
+          </div>
         </div>
       </form>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="empty">
+    <div class="col-md-8 mx-auto text-center">
+      <p class="text-success" style="font-size:1.8rem;">
+        No Product/Gadget Found
+      </p>
+      <p class="lead">Only items marked as "stolen" will show up.
+        <br>No item matching <strong>{{formData.value.search}}</strong> has been reported missing or stolen.</p>
+      <small class="text-muted">You might want to search using different Unique IDs on the device. <a href="/about#help">Learn how to find Unique Numbers</a> on you Gadget</small>
+    </div>
+  </div>
+  <div class="row mt-3" *ngIf="code?.title">
+    <div class="col-md-8 mx-auto">
+      <h3 class="text-center lead">Results</h3>
+      <ul class="list-group" tyle="cursor:pointer;">
+        <li class="list-group-item list-group-item-action flex-column align-items-start list-group-item-danger" id="{{code._id}}" title="This item is reported missing/stolen">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ code.title }}</h5>
+            <small class="text-muted" title="{{ code.createdAt }}">{{ code.createdAt | date }}</small>
+          </div>
+          <p class="lead mb-0">
+            {{ code.code }}
+            <br><small>Belongs to <strong>{{ code.createdByName }}</strong>. Contact: {{ code.contact }}</small>
+          </p>
+          <small class="text-muted">This product is marked as <strong>{{ code.is_stolen ? 'Stolen/Missing' : 'With Owner' }}</strong></small>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="row mt-5 text-center">
     <div class="col-12 mb-3">
       <h3>How it Works</h3>
-      <hr class="my-4">
+      <hr class="my-2">
     </div>
-    <div class="col-md-4">
-      <h3 class="lead" style="font-size:3rem;">Search</h3>
+    <div class="col-md-4 mb-2">
+      <h3 class="lead" style="font-size:2.6rem;">Search</h3>
       <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Query a database with thousands of gadgets, items and products reported as stolen or missing. It is free to search. You're welcome.
+      </p>
+    </div>
+    <div class="col-md-4 mb-2">
+      <h3 class="lead" style="font-size:2.6rem;">Understand</h3>
+      <p class="lead">
+        Before you purchase that second-hand product, be informed. You don't have to buy a stolen item.
       </p>
     </div>
     <div class="col-md-4">
-      <h3 class="lead" style="font-size:3rem;">Understand</h3>
+      <h3 class="lead" style="font-size:2.6rem;">Contribute</h3>
       <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-    </div>
-    <div class="col-md-4">
-      <h3 class="lead" style="font-size:3rem;">Contribute</h3>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Enlist your gadgets. Mark them as "stolen/missing", and stop the resell of your stolen or missing items.
       </p>
     </div>
     <div class="w-100">
-      <hr class="my-4">
+      <hr class="my-2">
     </div>
-    <div class="col-12 mt-3 text-center">
+    <div class="col-12 mt-2 text-center">
       <a [routerLink]="['/dash']" class="btn btn-outline-primary btn-lg">Get Started</a>
     </div>
   </div>
